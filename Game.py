@@ -11,6 +11,9 @@ class Game:
 
 	def run(self):
 		while self.running:
+			self.dt = game.clock.tick(60)
+			self.dt_seconds = self.dt / 1000.0
+			
 			self.interface.draw(self.player)
 			self.interface.update(self)
 

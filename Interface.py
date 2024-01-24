@@ -19,3 +19,4 @@ class Interface:
 
 	def draw(self, player):
 		self.screen.fill("black")
+		

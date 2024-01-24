@@ -11,6 +11,8 @@ class Player:
 		self.spaceship.move(self, game.dt_seconds)
 		self.spaceship.fire(self)
 
+		self.spaceship.update()
+
 		for laser in self.spaceship.lasers:
 			if (laser.y < 0):
 				self.spaceship.lasers.remove(laser)

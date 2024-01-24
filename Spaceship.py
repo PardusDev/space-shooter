@@ -5,8 +5,8 @@ from settings import *
 
 spaceships = [
 	#Name      , Asset        ,DMG,  SPD, TURRET POSITIONS      , CLDW, ENGINE POS
-	["Sentinel", SENTINEL_PATH, 15, 0.67, [(135, 79), (211, 79)], 1   ,], # -> Sentinel 0
-	["Vanguard", VANGUARD_PATH, 20, 0.81, [(104, 23), (182, 23)], 0.11, [(92, 266), (189, 266)], ENGINE_PATH] # -> Vanguard 1
+	["Sentinel", SENTINEL_PATH, 15, 0.67, [(135, 79), (211, 79)], 1   , [(86, 240), (271, 240), (143, 280), (215, 280)], ENGINE_PATH], # -> Sentinel 0
+	["Vanguard", VANGUARD_PATH, 20, 0.81, [(104, 23), (182, 23)], 0.11, [(103, 276), (200, 276)], ENGINE_PATH] # -> Vanguard 1
 ]
 
 class Spaceship:
@@ -19,7 +19,7 @@ class Spaceship:
 		self.speedMultiplier = spaceships[self.spaceship][3]
 		self.width, self.height = self.image.get_size()
 		self.x = (WIDTH / 2) - (self.width / 2)
-		self.y = (HEIGHT - self.height) - 10
+		self.y = (HEIGHT - self.height) - 40
 
 		# Weapons
 		self.lasers = []
@@ -86,6 +86,10 @@ class Spaceship:
 					self.lasers.append(Laser(turretX, turretY, self.damage))
 				
 				self.last_fired_time = current_time
+
+	def update(self):
+		for engine in self.engines:
+			engine.update()
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.x, self.y))

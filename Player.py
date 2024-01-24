@@ -9,7 +9,13 @@ class Player:
 
 	def update(self, game):
 		self.spaceship.move(self, game.dt_seconds)
-		self.spaceship.fire(self, game.dt_seconds)
+		self.spaceship.fire(self)
+
+		for laser in self.spaceship.lasers:
+			if (laser.y < 0):
+				self.spaceship.lasers.remove(laser)
+			else:
+				laser.move()
 
 	def draw(self, screen):
 		self.spaceship.draw(screen)

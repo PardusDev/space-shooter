@@ -1,4 +1,6 @@
 import pygame as pg
+
+from Enemy import *
 from Interface import *
 from Player import *
 
@@ -9,16 +11,23 @@ class Game:
 		self.clock = pg.time.Clock()
 		self.running = True
 
+		self.enemies = []
+		self.enemies.append(Marauder(0, 0, 0, 0, 0))
+
 	def run(self):
 		while self.running:
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
-			
+
 			self.interface.draw(self.player)
 			self.interface.update(self)
 
 			self.player.update(self)
 			self.player.draw(self.interface.screen)
+
+			for enemy in self.enemies:
+				enemy.move(self)
+				enemy.draw(self.interface.screen)
 
 			pg.display.update()
 

@@ -13,11 +13,7 @@ class Player:
 
 		self.spaceship.update()
 
-		for laser in self.spaceship.lasers:
-			if (laser.y < 0):
-				self.spaceship.lasers.remove(laser)
-			else:
-				laser.move()
+		
 
 	def draw(self, screen):
 		self.spaceship.draw(screen)

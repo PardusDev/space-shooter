@@ -3,7 +3,7 @@ from utilities import *
 from settings import *
 
 class Button:
-	def __init__(self, x, y, width, height, onClick, asset, text = None, font_size = 36):
+	def __init__(self, x, y, width, height, onClick, asset, text = None, font_size = 24):
 		self.x = x
 		self.y = y
 		self.image = scale_image(pg.image.load(asset), width, height)

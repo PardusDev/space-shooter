@@ -52,8 +52,16 @@ class Game:
 			'''
 			pg.display.update()
 
+		pg.quit()
+
 	def play(self):
-		self.mainmenu = None
+		print("Clicked play")
+		#self.mainmenu = None
+
+	def quit(self):
+		print("Clicked quit")
+		self.running = False
+
 			
 
 game = Game()

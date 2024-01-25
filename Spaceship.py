@@ -4,20 +4,14 @@ from Laser import *
 from utilities import *
 from settings import *
 
-spaceships = [
-	#Name      , Asset        ,DMG,  SPD, TURRET POSITIONS      , CLDW, ENGINE POS
-	["Sentinel", SENTINEL_PATH, 15, 0.81, [(135, 79), (211, 79)], 0.26   , [(83, 240), (269, 240), (140, 280), (215, 280)], ENGINE_PATH], # -> Sentinel 0
-	["Vanguard", VANGUARD_PATH, 20, 0.97, [(104, 23), (182, 23)], 0.11, [(100, 276), (197, 276)], ENGINE_PATH] # -> Vanguard 1
-]
 
 class Spaceship:
-	def __init__(self, spaceship):
-		self.spaceship = spaceship
-		self.spaceshipName = spaceships[self.spaceship][0]
-		self.image = scale_image(pg.image.load(spaceships[self.spaceship][1]), 120, 80)
-		self.ratio = get_ratio(pg.image.load(spaceships[self.spaceship][1]), 120, 80)
-		self.damage = spaceships[self.spaceship][2]
-		self.speedMultiplier = spaceships[self.spaceship][3]
+	def __init__(self, spaceshipName, image, ratio):
+		self.spaceshipName = spaceshipName
+		self.image = image
+		self.ratio = ratio
+		self.damage = None # -> It will be set in the child class
+		self.speedMultiplier = None # -> It will be set in the child class
 		self.width, self.height = self.image.get_size()
 		self.x = (WIDTH / 2) - (self.width / 2)
 		self.y = (HEIGHT - self.height) - 40
@@ -25,15 +19,13 @@ class Spaceship:
 
 		# Weapons
 		self.lasers = []
-		self.turretPoses = spaceships[self.spaceship][4]
-		self.laserCooldown = spaceships[self.spaceship][5]
 		self.last_fired_time = 0
 		
 
 		# Engines
 		self.engines = []
-		self.enginePoses = spaceships[self.spaceship][6]
-
+	
+	def set_engines(self):
 		for enginePos in self.enginePoses:
 			enginePosX, enginePosY = enginePos
 			enginePosX = self.x + (enginePosX * self.ratio)
@@ -62,7 +54,7 @@ class Spaceship:
 					turretX, turretY = xy
 					turretX = self.x + (turretX * self.ratio)
 					turretY = self.y + (turretY * self.ratio)
-					self.lasers.append(Laser(turretX, turretY, self.damage))
+					self.lasers.append(Laser(turretX, turretY, self.damage, self))
 				
 				self.last_fired_time = current_time
 
@@ -85,4 +77,38 @@ class Spaceship:
 		for engine in self.engines:
 			engine.draw(screen)
 
+
+class Sentinel(Spaceship):
+	def __init__(self):
+		image, ratio = scale_image_and_get_ratio(pg.image.load(SENTINEL_PATH), 120, 80)
+		super().__init__("Sentinel", image, ratio)
+		self.damage = 20
+		self.speedMultiplier = 0.97
+
+		# Lasers
+		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 3, (0)) for i in range(23)]
+		self.turretPoses = [(135, 79), (211, 79)]
+		self.laserCooldown = 0.11
+
+		# Engines
+		self.enginePoses = [(83, 240), (269, 240), (140, 280), (215, 280)]
+
+		self.set_engines()
 	
+class Vanguard(Spaceship):
+	def __init__(self):
+		image, ratio = scale_image_and_get_ratio(pg.image.load(VANGUARD_PATH), 120, 80)
+		super().__init__("Vanguard", image, ratio)
+		self.damage = 15
+		self.speedMultiplier = 0.81
+
+		# Lasers
+		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 3, (0)) for i in range(23)]
+		self.turretPoses = [(104, 23), (182, 23)]
+		self.laserCooldown = 0.11
+
+		# Engines
+		self.enginePoses = [(100, 276), (197, 276)]
+
+		self.set_engines()
+		

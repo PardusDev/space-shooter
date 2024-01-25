@@ -23,7 +23,7 @@ class Enemy:
 	def move(self, game):
 		# X - AXIS
 		self.last_update += pg.time.get_ticks()
-		if self.last_update > random.randint(1000000, 9000000):
+		if self.last_update > random.randint(pg.time.get_ticks(), pg.time.get_ticks()+9000000):
 			self.direction *= -1
 			self.speed = -self.base_speed
 			self.last_update = 0

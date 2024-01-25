@@ -9,6 +9,7 @@ class Game:
 	def __init__(self):
 		pg.init()
 		self.mainmenu = MainMenu(self)
+		
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.
 		self.interface = Interface()
 		self.clock = pg.time.Clock()
@@ -67,9 +68,9 @@ class Game:
 		while self.running:
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
+			self.interface.screen.fill("black")
 
-			self.interface.draw(self.player)
-			self.interface.update(self)
+			
 			
 			self.player.draw(self.interface.screen)
 			self.player.update(self)
@@ -92,6 +93,8 @@ class Game:
 						# Remove laser
 						self.player.spaceship.lasers.remove(laser)
 
+			self.interface.draw(self.player)
+			self.interface.update(self)
 			pg.display.update()
 
 

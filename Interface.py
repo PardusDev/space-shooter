@@ -8,6 +8,10 @@ class Interface:
 		self.screen = pg.display.set_mode(RES)
 		pg.display.set_caption("Space Shooter")
 
+	def draw_health_bar(self, player):
+		pg.draw.rect(self.screen, "red", (10, 10, 200, 20))
+		pg.draw.rect(self.screen, "green", (10, 10, player.health * 2, 20))
+
 	def update(self, game):
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
@@ -17,5 +21,7 @@ class Interface:
 
 
 	def draw(self, player):
-		self.screen.fill("black")
+		self.draw_health_bar(player)
+
+	
 		

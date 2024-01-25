@@ -2,7 +2,6 @@ import pygame as pg
 from utilities import *
 from settings import *
 
-
 class Engine:
 	def __init__(self, ship, x, y, POS, ROT):
 		self.x = x

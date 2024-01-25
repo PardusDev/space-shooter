@@ -1,11 +1,13 @@
 import pygame as pg
 
+from MainMenu import *
 from Enemy import *
 from Interface import *
 from Player import *
 
 class Game:
 	def __init__(self):
+		self.mainmenu = MainMenu()
 		self.player = Player()
 		self.interface = Interface()
 		self.clock = pg.time.Clock()
@@ -17,6 +19,9 @@ class Game:
 
 	def run(self):
 		while self.running:
+			self.mainmenu.update()
+			self.mainmenu.draw(self.interface.screen)
+			'''
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
 
@@ -41,8 +46,9 @@ class Game:
 						
 						# Remove laser
 						self.player.spaceship.lasers.remove(laser)
-
+			'''
 			pg.display.update()
+			
 
 game = Game()
 game.run()

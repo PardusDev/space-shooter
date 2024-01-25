@@ -21,14 +21,17 @@ class Button:
 
 		
 	def update(self):
-		for event in pg.event.get():
-			if event.type == pg.MOUSEBUTTONDOWN:		
-				if pg.Rect(self.x, self.y, self.width, self.height).collidepoint(pg.mouse.get_pos()):
-					self.onClick()
+		pass
+
+	def isCollide(self, pos):
+		return pg.Rect(self.x, self.y, self.width, self.height).collidepoint(pos)
 					
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.x, self.y))
+
+		# For collision detection
+		# pg.draw.rect(screen, (0, 255, 255), (self.x, self.y, self.width, self.height))
 
 		if self.text != None:
 			screen.blit(self.img, (self.x + self.width / 2 - self.img.get_width() / 2, self.y + self.height / 2 - self.img.get_height() / 2))

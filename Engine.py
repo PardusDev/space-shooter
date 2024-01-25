@@ -4,13 +4,14 @@ from settings import *
 
 
 class Engine:
-	def __init__(self, ship, x, y, engine_path, POS):
+	def __init__(self, ship, x, y, POS, ROT):
 		self.x = x
 		self.y = y
 		self.POS = POS
+		self.ROT = ROT
 		
 		self.index = 0
-		self.frames = [scale_and_rot_image(pg.image.load(f"assets/engine_effects/{i:02d}_vanguard.png"), ship.ratio / 1.5) for i in range(32)]
+		self.frames = [scale_and_rot_image(pg.image.load(f"assets/engine_effects/{i:02d}_vanguard.png"), ship.ratio / 1.5, self.ROT) for i in range(32)]
 		self.image = self.frames[self.index]
 
 		self.width, self.height = self.image.get_size()

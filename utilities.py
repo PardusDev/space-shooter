@@ -16,10 +16,10 @@ def get_ratio (image, target_width, target_height):
 
 	return ratio
 
-def scale_and_rot_image (image, ratio):
+def scale_and_rot_image (image, ratio, rotation):
 	original_width, original_height = image.get_size()
 
 	new_width = int(original_width * ratio)
 	new_height = int(original_height * ratio)
 
-	return pg.transform.rotate(pg.transform.scale(image, (new_width, new_height)), 180)
+	return pg.transform.rotate(pg.transform.scale(image, (new_width, new_height)), rotation)

@@ -4,7 +4,7 @@ from Spaceship import *
 class Player:
 	def __init__(self):
 		self.health = 100
-		self.spaceship = Spaceship(1)
+		self.spaceship = Spaceship(0)
 		self.speed = 120
 
 	def update(self, game):

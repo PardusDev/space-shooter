@@ -6,8 +6,8 @@ from settings import *
 
 spaceships = [
 	#Name      , Asset        ,DMG,  SPD, TURRET POSITIONS      , CLDW, ENGINE POS
-	["Sentinel", SENTINEL_PATH, 15, 0.67, [(135, 79), (211, 79)], 1   , [(83, 240), (269, 240), (140, 280), (215, 280)], ENGINE_PATH], # -> Sentinel 0
-	["Vanguard", VANGUARD_PATH, 20, 0.81, [(104, 23), (182, 23)], 0.11, [(100, 276), (197, 276)], ENGINE_PATH] # -> Vanguard 1
+	["Sentinel", SENTINEL_PATH, 15, 0.81, [(135, 79), (211, 79)], 0.26   , [(83, 240), (269, 240), (140, 280), (215, 280)], ENGINE_PATH], # -> Sentinel 0
+	["Vanguard", VANGUARD_PATH, 20, 0.97, [(104, 23), (182, 23)], 0.11, [(100, 276), (197, 276)], ENGINE_PATH] # -> Vanguard 1
 ]
 
 class Spaceship:
@@ -21,6 +21,7 @@ class Spaceship:
 		self.width, self.height = self.image.get_size()
 		self.x = (WIDTH / 2) - (self.width / 2)
 		self.y = (HEIGHT - self.height) - 40
+		
 
 		# Weapons
 		self.lasers = []
@@ -37,7 +38,7 @@ class Spaceship:
 			enginePosX, enginePosY = enginePos
 			enginePosX = self.x + (enginePosX * self.ratio)
 			enginePosY = self.y + (enginePosY * self.ratio)
-			self.engines.append(Engine(self, enginePosX, enginePosY, spaceships[self.spaceship][7], enginePos))
+			self.engines.append(Engine(self, enginePosX, enginePosY, enginePos, 180))
 	
 	def move(self, player, dt_seconds):
 		keys = pg.key.get_pressed()
@@ -73,7 +74,7 @@ class Spaceship:
 			if (laser.y < 0):
 				self.lasers.remove(laser)
 			else:
-				laser.move()
+				laser.update()
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.x, self.y))

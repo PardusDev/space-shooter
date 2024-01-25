@@ -12,7 +12,8 @@ class Game:
 		self.running = True
 
 		self.enemies = []
-		self.enemies.append(Marauder(0, 0, 0, 0, 0))
+		for i in range(10):
+			self.enemies.append(Marauder(random.randrange(10, WIDTH - 100), random.randrange(-1000, -10), 0, 0, 500))
 
 	def run(self):
 		while self.running:
@@ -26,8 +27,20 @@ class Game:
 			self.player.draw(self.interface.screen)
 
 			for enemy in self.enemies:
-				enemy.move(self)
+				enemy.update(self)
 				enemy.draw(self.interface.screen)
+
+				for laser in self.player.spaceship.lasers:
+					if laser.collide(enemy):
+						# Damage enemy
+						enemy.health -= laser.damage
+						
+						# Remove enemy if health is 0
+						if (enemy.health <= 0):
+							self.enemies.remove(enemy)
+						
+						# Remove laser
+						self.player.spaceship.lasers.remove(laser)
 
 			pg.display.update()
 

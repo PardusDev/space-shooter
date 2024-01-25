@@ -6,5 +6,5 @@ VANGUARD_PATH = "assets/spaceships/vanguard.png"
 
 ENGINE_PATH = "assets/engine_effects/vanguard.png"
 
-BUTTON_BACKGROUND = "assets/ui/StartButton.png"
+START_BUTTON_BACKGROUND = "assets/ui/StartButton.png"
 MAIN_MENU_BACKGROUND = "assets/ui/Background.png"

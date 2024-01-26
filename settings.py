@@ -15,3 +15,5 @@ MAIN_MENU_BACKGROUND = "assets/ui/Background.png"
 HEALTH_BAR_BACKGROUND = "assets/ui/HealthBarBG.png"
 HEALTH_BAR_LEFT_BLOCK = "assets/ui/HealthBarLEFTBLOCK.png"
 HEALTH_BAR_BACKGROUND_MASK = "assets/ui/HealthBarMask.png"
+
+BACK_BUTTON = "assets/ui/BackButton.png"

@@ -1,6 +1,6 @@
 import pygame as pg
 
-from MainMenu import *
+from MainMenuScreen import *
 from Enemy import *
 from Interface import *
 from Player import *
@@ -8,7 +8,7 @@ from Player import *
 class Game:
 	def __init__(self):
 		pg.init()
-		self.mainmenu = MainMenu(self)
+		self.mainmenu = MainMenuScreen(self)
 
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.
 		self.interface = Interface()

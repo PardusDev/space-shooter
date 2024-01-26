@@ -45,7 +45,7 @@ class Spaceship:
 		for engine in self.engines:
 			engine.move(self)
 
-	def fire(self, player):
+	def fire(self, player, game):
 		current_time = pg.time.get_ticks() / 1000.0
 		if current_time - self.last_fired_time >= self.laserCooldown:
 			keys = pg.key.get_pressed()
@@ -55,15 +55,16 @@ class Spaceship:
 					turretX = self.x + (turretX * self.ratio)
 					turretY = self.y + (turretY * self.ratio)
 					self.lasers.append(Laser(turretX, turretY, self.damage, self))
+				game.sound_effects["ally_laser"].play()
 				
 				self.last_fired_time = current_time
 
 				# For debug
-				player.player_lost_health(self.damage)
+				# player.player_lost_health(self.damage)
 			
 			# For debug
-			if(keys[pg.K_DOWN]):
-				player.player_get_health(10)
+			# if(keys[pg.K_DOWN]):
+			# 	player.player_get_health(10)
 		
 		
 

@@ -54,7 +54,7 @@ class Enemy:
 		for engine in self.engines:
 			engine.move(self)
 
-	def fire(self, player):
+	def fire(self, game):
 		current_time = pg.time.get_ticks() / 1000.0
 		# You can add range
 		if self.y > 0:
@@ -63,8 +63,9 @@ class Enemy:
 					turretX, turretY = xy
 					turretX = self.x + (turretX * self.ratio)
 					turretY = self.y + (turretY * self.ratio)
-					self.lasers.append(Laser(turretX, turretY, self.damage, self, (player.spaceship.x, player.spaceship.y)))
+					self.lasers.append(Laser(turretX, turretY, self.damage, self, (game.player.spaceship.x, game.player.spaceship.y)))
 				
+				game.sound_effects["enemy_laser"].play()
 				self.last_fired_time = current_time
 
 	def collide(self, spaceship):
@@ -72,7 +73,7 @@ class Enemy:
 	
 	def update(self, game):
 		self.move(game)
-		self.fire(game.player)
+		self.fire(game)
 		
 
 		for engine in self.engines:

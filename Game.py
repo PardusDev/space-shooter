@@ -8,6 +8,12 @@ from Player import *
 class Game:
 	def __init__(self):
 		pg.init()
+		# It is created in the button class
+		# self.iconFont = pg.font.Font("assets/fonts/icons.ttf", 18)
+		self.sound_effects = {
+			"enemy_laser": pg.mixer.Sound("assets/sounds/basic_laser/enemy_laser_effect.ogg"),
+			"ally_laser": pg.mixer.Sound("assets/sounds/basic_laser/ally_laser_effect.ogg"),
+		}
 		self.mainmenu = MainMenuScreen(self)
 
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.

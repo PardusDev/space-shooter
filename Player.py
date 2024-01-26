@@ -14,7 +14,7 @@ class Player:
 
 	def update(self, game):
 		self.spaceship.move(self, game.dt_seconds)
-		self.spaceship.fire(self)
+		self.spaceship.fire(self, game)
 
 		self.spaceship.update(game.dt_seconds)
 

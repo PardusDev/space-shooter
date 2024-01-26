@@ -3,7 +3,7 @@ from utilities import *
 from settings import *
 
 class Button:
-	def __init__(self, x, y, width, height, onClick, asset, text = None, font_size = 24):
+	def __init__(self, x, y, width, height, onClick, asset, text = None, font_size = 24, font = None):
 		self.x = x
 		self.y = y
 		self.image = scale_image(pg.image.load(asset), width, height)
@@ -11,10 +11,13 @@ class Button:
 		self.onClick = onClick
 		
 		self.text = text
+		if font is not None:
+			self.font = font
+		else:
+			self.font = pg.font.SysFont(None, font_size)
 
 		if self.text != None:	
 			self.font_size = font_size
-			self.font = pg.font.SysFont(None, self.font_size)
 			self.img = self.font.render(self.text, True, (255, 255, 255))
 			self.text_width, self.text_height = self.img.get_size()
 			

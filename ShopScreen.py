@@ -2,7 +2,7 @@ import pygame as pg
 from Button import *
 from settings import *
 
-class SettingsScreen:
+class ShopScreen:
 	def __init__(self, game, previous_screen):
 		self.game = game
 		self.background = pg.image.load(SETTINGS_MENU_BACKGROUND)
@@ -17,7 +17,7 @@ class SettingsScreen:
 				for button in self.buttons:
 					if button.isCollide(pg.mouse.get_pos()):
 						button.onClick()
-
+	
 	def draw(self, screen):
 		screen.blit(self.background, (0, 0))
 

@@ -58,7 +58,12 @@ class Spaceship:
 				
 				self.last_fired_time = current_time
 
-	def update(self):
+				# For debug
+				player.player_lost_health(self.damage)
+		
+		
+
+	def update(self, dt_seconds):
 		for engine in self.engines:
 			engine.update()
 
@@ -66,7 +71,7 @@ class Spaceship:
 			if (laser.y < 0):
 				self.lasers.remove(laser)
 			else:
-				laser.update()
+				laser.update(dt_seconds)
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.x, self.y))
@@ -86,9 +91,9 @@ class Sentinel(Spaceship):
 		self.speedMultiplier = 0.97
 
 		# Lasers
-		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 3, (0)) for i in range(23)]
+		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 4, (0)) for i in range(23)]
 		self.turretPoses = [(135, 79), (211, 79)]
-		self.laserCooldown = 0.11
+		self.laserCooldown = 0.18
 
 		# Engines
 		self.enginePoses = [(83, 240), (269, 240), (140, 280), (215, 280)]
@@ -103,7 +108,7 @@ class Vanguard(Spaceship):
 		self.speedMultiplier = 0.81
 
 		# Lasers
-		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 3, (0)) for i in range(23)]
+		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 4, (0)) for i in range(23)]
 		self.turretPoses = [(104, 23), (182, 23)]
 		self.laserCooldown = 0.11
 

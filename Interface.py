@@ -1,6 +1,8 @@
 import pygame as pg
 
+
 from Player import *
+from utilities import *
 from settings import *
 
 class Interface:
@@ -8,9 +10,22 @@ class Interface:
 		self.screen = pg.display.set_mode(RES)
 		pg.display.set_caption("Space Shooter")
 
-	def draw_health_bar(self, player):
-		pg.draw.rect(self.screen, "red", (10, 10, 200, 20))
-		pg.draw.rect(self.screen, "green", (10, 10, player.health * 2, 20))
+		self.health_background_bg, self.ui_ratio = scale_image_and_get_ratio(pg.image.load(HEALTH_BAR_BACKGROUND), 320, 60)
+		self.health_background_mask_img = scale_and_rot_image(pg.image.load(HEALTH_BAR_BACKGROUND_MASK), self.ui_ratio, 0)
+		self.health_background_mask_img_max_size = self.health_background_mask_img.get_size()
+
+		self.health_left_block = scale_and_rot_image(pg.image.load(HEALTH_BAR_LEFT_BLOCK), self.ui_ratio, 0)
+
+		self.last_update = 0
+		self.frame_rate = 5
+		self.last_health_size = self.health_background_mask_img_max_size[0]
+
+	def draw_health_bar(self):
+		self.screen.blit(self.health_background_bg, (28, 10))
+		self.screen.blit(self.health_background_mask_img, (28, 10))
+		self.screen.blit(self.health_left_block, (10, 10))
+		pass
+		
 
 	def update(self, game):
 		for event in pg.event.get():
@@ -19,9 +34,25 @@ class Interface:
 			elif event.type == pg.KEYDOWN:
 				game.running = True
 
+		current = pg.time.get_ticks()
+		if current - self.last_update > self.frame_rate:
+			if self.last_health_size > game.player.health * (self.health_background_mask_img_max_size[0] / game.player.max_health):
+				self.health_background_mask_img = pg.transform.scale(self.health_background_mask_img, (self.last_health_size, self.health_background_mask_img_max_size[1]))
+				self.last_update = current
+				self.last_health_size -= 3
+
+	def update_manual(self, player):
+		if (player.health < 25):
+			# mask_threshold = (255, 0, 0) 
+			# mask_surface = pg.Surface(self.health_background_mask_img.get_size(), pg.SRCALPHA)
+			# mask_surface.fill(mask_threshold)
+
+			# self.health_background_mask_img.blit(mask_surface, (0, 0), special_flags=pg.BLEND_RGBA_MULT)
+			pass
+		pass
 
 	def draw(self, player):
-		self.draw_health_bar(player)
+		self.draw_health_bar()
 
 	
 		

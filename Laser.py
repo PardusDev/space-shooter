@@ -20,14 +20,17 @@ class Laser:
 		self.frame_rate = 20
 		self.last_update = pg.time.get_ticks()
 
+		# Speed
+		self.speed = 250
+
 	def collide(self, enemy):
 		return pg.Rect(self.x, self.y, self.width, self.height).colliderect(pg.Rect(enemy.x, enemy.y, enemy.width, enemy.height))
 
-	def move(self):
-		self.y -= 5
+	def move(self, dt_seconds):
+		self.y -= self.speed * dt_seconds
 
-	def update(self):
-		self.move()
+	def update(self, dt_seconds):
+		self.move(dt_seconds)
 
 		current = pg.time.get_ticks()
 		if current - self.last_update > self.frame_rate:

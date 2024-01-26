@@ -14,11 +14,10 @@ class Enemy:
 		self.speed = 0
 		self.damage = damage
 		self.health = health
-		self.image = scale_image(asset, 120, 80)
+		self.image, self.ratio = scale_image_and_get_ratio(asset, 120, 80)
 		self.width, self.height = self.image.get_size()
 		self.direction = 1 # 1 = right, -1 = left
 		self.last_update = 0
-		self.ratio = get_ratio(self.image, 120, 80)
 	
 	def move(self, game):
 		# X - AXIS
@@ -32,7 +31,7 @@ class Enemy:
 			self.direction = -1
 			self.speed = self.base_speed
 
-		self.speed = min(self.speed + self.acceleration * game.dt_seconds, self.max_speed)
+		self.speed = min(self.speed + self.acceleration * game.dt_seconds, self.max_speed * game.dt_seconds)
 		self.x += self.direction * self.speed * game.dt_seconds
 		
 		# Y - AXIS

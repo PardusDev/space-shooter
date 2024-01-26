@@ -9,7 +9,7 @@ class Game:
 	def __init__(self):
 		pg.init()
 		self.mainmenu = MainMenu(self)
-		
+
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.
 		self.interface = Interface()
 		self.clock = pg.time.Clock()
@@ -56,7 +56,7 @@ class Game:
 	def play(self):
 		print("Clicked play")
 		self.mainmenu = None
-		self.player = Player()
+		self.player = Player(self.interface)
 		
 		
 

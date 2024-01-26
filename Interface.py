@@ -42,8 +42,11 @@ class Interface:
 				self.last_health_size += (desired_health_size - self.last_health_size) / abs(desired_health_size - self.last_health_size)
 				self.health_background_mask_img = self.health_background_mask_imgORG.subsurface((0, 0, int(self.last_health_size), self.health_background_mask_img_max_size[1]))
 			self.last_update = current
+	
 
 	def update_manual(self, player):
+		# Color changing code. However, it does not work correctly.
+		
 		# self.health_background_mask_img = pg.transform.scale(self.health_background_mask_img, (player.health * (self.health_background_mask_img_max_size[0] / player.max_health), self.health_background_mask_img_max_size[1]))
 		# if (player.health < 25):
 		# 	mask_threshold = (255, 99, 71) 

@@ -68,7 +68,7 @@ class Game:
 		while self.running:
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
-			self.interface.screen.fill("black")
+			self.interface.screen.fill((11, 11, 11))
 
 			
 			
@@ -80,7 +80,16 @@ class Game:
 				enemy.draw(self.interface.screen)
 				enemy.update(self)
 				
+				# Enemy's laser to player collision
+				for laser in enemy.lasers:
+					if laser.collide(self.player.spaceship):
+						# Damage player
+						self.player.player_lost_health(laser.damage)
+						
+						# Remove laser
+						enemy.lasers.remove(laser)
 
+				# Player's laser to enemy collision
 				for laser in self.player.spaceship.lasers:
 					if laser.collide(enemy):
 						# Damage enemy

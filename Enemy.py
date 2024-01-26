@@ -1,5 +1,7 @@
 import pygame as pg
 import random
+
+from Laser import *
 from Engine import *
 from utilities import *
 from settings import *
@@ -18,6 +20,16 @@ class Enemy:
 		self.width, self.height = self.image.get_size()
 		self.direction = 1 # 1 = right, -1 = left
 		self.last_update = 0
+
+		# Engines
+		self.engines = []
+
+		# Turrets
+		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 4, (0)) for i in range(23)]
+		self.lasers = []
+		self.turretPoses = []
+		self.laserCooldown = 0.32
+		self.last_fired_time = 0
 	
 	def move(self, game):
 		# X - AXIS
@@ -41,12 +53,36 @@ class Enemy:
 		# Engine movement
 		for engine in self.engines:
 			engine.move(self)
+
+	def fire(self, player):
+		current_time = pg.time.get_ticks() / 1000.0
+		# You can add range
+		if self.y > 0:
+			if current_time - self.last_fired_time >= self.laserCooldown:
+				for xy in self.turretPoses:
+					turretX, turretY = xy
+					turretX = self.x + (turretX * self.ratio)
+					turretY = self.y + (turretY * self.ratio)
+					self.lasers.append(Laser(turretX, turretY, self.damage, self, (player.spaceship.x, player.spaceship.y)))
+				
+				self.last_fired_time = current_time
+
+	def collide(self, spaceship):
+		return pg.Rect(self.x, self.y, self.width, self.height).colliderect(pg.Rect(spaceship.x, spaceship.y, spaceship.width, spaceship.height))
 	
 	def update(self, game):
 		self.move(game)
+		self.fire(game.player)
+		
 
 		for engine in self.engines:
 			engine.update()
+
+		for laser in self.lasers:
+			if (laser.y > HEIGHT):
+				self.lasers.remove(laser)
+			else:
+				laser.update(game.dt_seconds)
 
 		
 
@@ -58,15 +94,18 @@ class Enemy:
 		for engine in self.engines:
 			engine.draw(screen)
 
+		for laser in self.lasers:
+			laser.draw(screen)
+
 class Marauder(Enemy):
 	def __init__(self, x, y , speed, damage, health):
 		asset = pg.image.load("assets/enemy_ships/marauder.png")
 		x = random.randint(0, WIDTH - asset.get_width())
 		
-		base_speed = 30
-		max_speed = 120
-		acceleration = 15
-		damage = 10
+		base_speed = 15
+		max_speed = 60
+		acceleration = 5
+		damage = 15
 		health = 500
 
 		super().__init__(x, y, base_speed, max_speed, acceleration, damage, health, asset)
@@ -75,8 +114,11 @@ class Marauder(Enemy):
 		self.ratio = get_ratio(asset, 120, 80)
 
 		# If you want to add engines to the ship, you can do it here
-		self.engines = []
 		self.engines.append(Engine(self, self.x + 20, self.y + 80, (100, 276), 0))
+
+		# If you want to add turrets to the ship, you can do it here
+		self.turretPoses.append((60, 80))
+		self.laserCooldown = 1.32
 
 	def move(self, game):
 		super().move(game)

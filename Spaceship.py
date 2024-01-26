@@ -60,6 +60,10 @@ class Spaceship:
 
 				# For debug
 				player.player_lost_health(self.damage)
+			
+			# For debug
+			if(keys[pg.K_DOWN]):
+				player.player_get_health(10)
 		
 		
 

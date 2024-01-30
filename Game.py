@@ -15,6 +15,11 @@ class Game:
 			"enemy_laser": pg.mixer.Sound("assets/sounds/basic_laser/enemy_laser_effect.ogg"),
 			"ally_laser": pg.mixer.Sound("assets/sounds/basic_laser/ally_laser_effect.ogg"),
 		}
+
+		self.ui = {
+
+			"dialogue_bg": scale_image(pg.image.load(DIALOG_SPLASH), 500, 300)
+		}
 		self.mainmenu = MainMenuScreen(self)
 
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.
@@ -75,17 +80,18 @@ class Game:
 		# Countdown code
 		
 		# Start wave
-		self.wave.next_wave_start(self)
+		self.wave.next_wave_start()
 
 		while self.running:
-			# For debug
+			# Attention! For debug
 			print(len(self.enemies))
-			
+
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
 			self.interface.screen.fill((11, 11, 11))
 
-			
+			# For dialogue or merchant window
+			self.wave.draw()
 			
 			self.player.draw(self.interface.screen)
 			self.player.update(self)
@@ -113,6 +119,9 @@ class Game:
 						# Remove enemy if health is 0
 						if (enemy.health <= 0):
 							self.enemies.remove(enemy)
+
+							if (len(self.enemies) <= 0):
+								self.wave.current_wave_end()
 						
 						# Remove laser
 						self.player.spaceship.lasers.remove(laser)

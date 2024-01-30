@@ -1,6 +1,5 @@
 import pygame as pg
 
-
 from Player import *
 from utilities import *
 from settings import *
@@ -21,9 +20,6 @@ class Interface:
 		self.frame_rate = 1
 		self.last_health_size = self.health_background_mask_img_max_size[0]
 
-		# For debug
-
-		self.splash = scale_image(pg.image.load(DIALOG_SPLASH), 500, 300)
 
 	def draw_health_bar(self):
 		self.screen.blit(self.health_background_bg, (28, 10))
@@ -68,10 +64,7 @@ class Interface:
 
 	def draw(self, player):
 		self.draw_health_bar()
-		
-		# For debug
-		x, y = self.splash.get_size()
-		self.screen.blit(self.splash, (WIDTH / 2 - x / 2, HEIGHT / 2 - y / 2))
+	
 
 
 		

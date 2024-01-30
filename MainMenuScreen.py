@@ -10,13 +10,13 @@ class MainMenuScreen:
 		self.game = game
 		self.buttons = []
 							#     x: WIDTH / 2 - BUTTON_WIDTH / 2
-		self.buttons.append(Button(280, 120, 240, 120, game.play, START_BUTTON_BACKGROUND))
+		self.buttons.append(Button(280, 120, 240, 120, game.play, game.ui["start_button"]))
 
-		self.buttons.append(Button(270, 250, 260, 140, self.shop, OTHER_MAIN_MENU_BUTTON_BACKGROUND, "Shop", 22))
+		self.buttons.append(Button(270, 250, 260, 140, self.shop, game.ui["other_main_menu_button"], "Shop", 22))
 
-		self.buttons.append(Button(270, 300, 260, 140, self.settings, OTHER_MAIN_MENU_BUTTON_BACKGROUND, "Settings", 22))
+		self.buttons.append(Button(270, 300, 260, 140, self.settings, game.ui["other_main_menu_button"], "Settings", 22))
 
-		self.buttons.append(Button(270, 350, 260, 140, game.quit, OTHER_MAIN_MENU_BUTTON_BACKGROUND, "Quit Game", 22))
+		self.buttons.append(Button(270, 350, 260, 140, game.quit, game.ui["other_main_menu_button"], "Quit Game", 22))
 
 		self.currentScreen = None
 

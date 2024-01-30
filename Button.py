@@ -6,7 +6,7 @@ class Button:
 	def __init__(self, x, y, width, height, onClick, asset, text = None, font_size = 24, font = None):
 		self.x = x
 		self.y = y
-		self.image = scale_image(pg.image.load(asset), width, height)
+		self.image, self.ratio = scale_image_and_get_ratio(asset, width, height)
 		self.width, self.height = self.image.get_size()
 		self.onClick = onClick
 		

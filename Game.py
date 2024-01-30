@@ -18,8 +18,17 @@ class Game:
 
 		self.ui = {
 			
-			"dialogue_bg": scale_image(pg.image.load(DIALOG_SPLASH), 500, 300),
-			"dialogue_button": scale_image(pg.image.load(DIALOG_SPLASH_BUTTON), 100, 80)
+			"start_button": pg.image.load(START_BUTTON_BACKGROUND),
+			"other_main_menu_button": pg.image.load(OTHER_MAIN_MENU_BUTTON_BACKGROUND),
+			"dialogue_bg": pg.image.load(DIALOG_SPLASH),
+			"dialogue_button": pg.image.load(DIALOG_SPLASH_BUTTON)
+		}
+
+		self.fonts = {
+			
+			"sys-16": pg.font.SysFont(None, 16),
+			"sys-20": pg.font.SysFont(None, 20),
+			"sys-24": pg.font.SysFont(None, 24)
 		}
 		self.mainmenu = MainMenuScreen(self)
 

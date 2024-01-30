@@ -36,4 +36,4 @@ def scale_and_rot_image (image, ratio, rotation):
 	return pg.transform.rotate(pg.transform.scale(image, (new_width, new_height)), rotation)
 
 def get_random_pos_for_enemies():
-	return random.randrange(10, WIDTH - 100), random.randrange(-1000, -10)
+	return random.randrange(10, WIDTH - 100), random.randrange(-1000, -100)

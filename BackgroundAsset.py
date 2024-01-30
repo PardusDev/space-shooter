@@ -11,7 +11,7 @@ class BackgroundAsset:
 		self.asset.set_alpha(self.opacity)
 
 	def move(self, dt_seconds):
-		self.y += 100 * dt_seconds * self.scale
+		self.y += 1000 * dt_seconds * self.scale
 		if self.y > HEIGHT:
 			self.y = -30
 	

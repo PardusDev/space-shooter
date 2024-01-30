@@ -100,7 +100,7 @@ class Enemy:
 
 class Marauder(Enemy):
 	def __init__(self, x, y , speed, damage, health, game):
-		asset = game.enemy_assets["Marauder"]
+		asset = game.enemy_spaceships["Marauder"]
 		x = random.randint(0, WIDTH - asset.get_width())
 		
 		base_speed = 15
@@ -110,9 +110,6 @@ class Marauder(Enemy):
 		health = 200
 
 		super().__init__(x, y, base_speed, max_speed, acceleration, damage, health, asset)
-
-		self.image = asset
-		self.ratio = get_ratio(asset, 120, 80)
 
 		# If you want to add engines to the ship, you can do it here
 		self.engines.append(Engine(self, self.x + 20, self.y + 80, (100, 276), 0))

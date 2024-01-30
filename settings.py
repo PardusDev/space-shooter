@@ -12,6 +12,7 @@ RADIO_NOISE_PATH = "assets/sounds/radio/radio_noise_loop.wav"
 
 # SPACE
 WHITE_DOT_PATH = "assets/space/WhiteDot.png"
+STAR_PATH = "assets/space/Star.png"
 
 # UI
 

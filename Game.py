@@ -14,6 +14,7 @@ class Game:
 		# self.iconFont = pg.font.Font("assets/fonts/icons.ttf", 18)
 		self.space_assets = {
 			"white_dot": pg.image.load(WHITE_DOT_PATH),
+			"star": pg.image.load(STAR_PATH),
 		}
 
 		self.enemy_spaceships = {

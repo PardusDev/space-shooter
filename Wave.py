@@ -29,7 +29,7 @@ class Wave:
 			def spawn_enemies():
 				for i in range (7):
 					x, y = get_random_pos_for_enemies()
-					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+					self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
 				self.game.wave.dialogue = None
 
 			self.dialogue = Dialogue(self.game, "Wave 2: More of Them", "It seems these ships are hostile! Their launch locations have been detected by our radars. There are 7 more ships coming from this location! Let's defeat them as well.", spawn_enemies )
@@ -39,7 +39,7 @@ class Wave:
 				def spawn_enemies():
 					for i in range (10):
 						x, y = get_random_pos_for_enemies()
-						self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+						self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
 					self.game.wave.dialogue = None
 				
 				sleep(0.1)

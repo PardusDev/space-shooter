@@ -1,5 +1,6 @@
 import pygame as pg
 
+from Background import *
 from Wave import *
 from MainMenuScreen import *
 from Enemy import *
@@ -11,6 +12,14 @@ class Game:
 		pg.init()
 		# It is created in the button class
 		# self.iconFont = pg.font.Font("assets/fonts/icons.ttf", 18)
+		self.space_assets = {
+			"white_dot": pg.image.load(WHITE_DOT_PATH),
+		}
+
+		self.enemy_spaceships = {
+			"Marauder": pg.transform.rotate(pg.image.load(MARAUDER_PATH), 180),
+		}
+
 		self.ally_spaceships = {
 			"Sentinel": pg.image.load(SENTINEL_PATH),
 			"Vanguard": pg.image.load(VANGUARD_PATH)
@@ -19,6 +28,7 @@ class Game:
 		self.sound_effects = {
 			"enemy_laser": pg.mixer.Sound("assets/sounds/basic_laser/enemy_laser_effect.ogg"),
 			"ally_laser": pg.mixer.Sound("assets/sounds/basic_laser/ally_laser_effect.ogg"),
+			"radio_noise": pg.mixer.Sound(RADIO_NOISE_PATH)
 		}
 
 		self.ui = {
@@ -30,7 +40,10 @@ class Game:
 			"start_button": pg.image.load(START_BUTTON_BACKGROUND),
 			"other_main_menu_button": pg.image.load(OTHER_MAIN_MENU_BUTTON_BACKGROUND),
 			"dialogue_bg": pg.image.load(DIALOG_SPLASH),
+			"dialogue_header": pg.image.load(DIALOG_SPLASH_HEADER),
 			"dialogue_button": pg.image.load(DIALOG_SPLASH_BUTTON),
+
+			"back_button": pg.image.load(BACK_BUTTON),
 
 			"health_bar_bg": pg.image.load(HEALTH_BAR_BACKGROUND),
 			"health_bar_bg_mask": pg.image.load(HEALTH_BAR_BACKGROUND_MASK),
@@ -55,6 +68,8 @@ class Game:
 
 		self.enemies = []
 
+		self.bg_assets = []
+
 	def run(self):
 		while self.running:
 			if self.mainmenu is not None:
@@ -64,32 +79,6 @@ class Game:
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
 				
-			'''
-			self.dt = game.clock.tick(60)
-			self.dt_seconds = self.dt / 1000.0
-
-			self.interface.draw(self.player)
-			self.interface.update(self)
-
-			self.player.update(self)
-			self.player.draw(self.interface.screen)
-
-			for enemy in self.enemies:
-				enemy.update(self)
-				enemy.draw(self.interface.screen)
-
-				for laser in self.player.spaceship.lasers:
-					if laser.collide(enemy):
-						# Damage enemy
-						enemy.health -= laser.damage
-						
-						# Remove enemy if health is 0
-						if (enemy.health <= 0):
-							self.enemies.remove(enemy)
-						
-						# Remove laser
-						self.player.spaceship.lasers.remove(laser)
-			'''
 			pg.display.update()
 
 
@@ -98,6 +87,7 @@ class Game:
 		self.mainmenu = None
 		self.player = Player(self.interface, self)
 		self.wave = Wave(self)
+		self.background = Background(self)
 		
 		
 
@@ -110,11 +100,14 @@ class Game:
 
 		while self.running:
 			# Attention! For debug
-			print(len(self.enemies))
+			# print(len(self.enemies))
 
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
 			self.interface.screen.fill((11, 11, 11))
+
+			self.background.draw()
+			self.background.update()
 
 			# For dialogue or merchant window
 			self.wave.draw()

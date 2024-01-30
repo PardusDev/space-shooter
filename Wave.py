@@ -2,6 +2,7 @@ from Dialogue import *
 from Enemy import *
 from settings import *
 from utilities import *
+from time import sleep
 
 class Wave:
 	def __init__(self, game):
@@ -10,15 +11,17 @@ class Wave:
 		self.start = False
 
 	def create_enemy(self):
+		self.game.sound_effects["radio_noise"].play()
 		if (self.wave == 1):
 
 			# Wave enemies =>
 			def spawn_enemies():
 				for i in range (5):
 					x, y = get_random_pos_for_enemies()
-					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+					self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
+				self.game.wave.dialogue = None
 
-			self.dialogue = Dialogue(self.game, "Test", "This is just a test text. The first wave will begin once this window closes.", spawn_enemies )
+			self.dialogue = Dialogue(self.game, "Wave 1: Threat", "Our radars have detected unidentified spacecraft with unknown origin locations. We do not know whether they are friend or foe. Regardless of what they are, it's imperative that we ensure our own safety. According to the information from the radars, there are 5 unidentified ships. We believe they will enter our field of view shortly.", spawn_enemies )
 			# When dialogue screen closed, spawn enemies.
 			
 		elif (self.wave == 2):
@@ -27,8 +30,9 @@ class Wave:
 				for i in range (7):
 					x, y = get_random_pos_for_enemies()
 					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+				self.game.wave.dialogue = None
 
-			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The second wave will start when this window closes.", spawn_enemies )
+			self.dialogue = Dialogue(self.game, "Wave 2: More of Them", "It seems these ships are hostile! Their launch locations have been detected by our radars. There are 7 more ships coming from this location! Let's defeat them as well.", spawn_enemies )
 
 		elif (self.wave == 3):
 			def another_dialog():
@@ -36,7 +40,9 @@ class Wave:
 					for i in range (10):
 						x, y = get_random_pos_for_enemies()
 						self.game.enemies.append(Marauder(x, y, 0, 0, 500))
-
+					self.game.wave.dialogue = None
+				
+				sleep(0.1)
 				self.dialogue = Dialogue(self.game, "Test", "This is a test text. This is a ANOTHER text.", spawn_enemies)
 
 			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The third wave won't start when this window closes.", another_dialog )

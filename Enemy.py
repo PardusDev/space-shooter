@@ -99,8 +99,8 @@ class Enemy:
 			laser.draw(screen)
 
 class Marauder(Enemy):
-	def __init__(self, x, y , speed, damage, health):
-		asset = pg.image.load("assets/enemy_ships/marauder.png")
+	def __init__(self, x, y , speed, damage, health, game):
+		asset = game.enemy_assets["Marauder"]
 		x = random.randint(0, WIDTH - asset.get_width())
 		
 		base_speed = 15
@@ -111,7 +111,7 @@ class Marauder(Enemy):
 
 		super().__init__(x, y, base_speed, max_speed, acceleration, damage, health, asset)
 
-		self.image = pg.transform.rotate(self.image, 180)
+		self.image = asset
 		self.ratio = get_ratio(asset, 120, 80)
 
 		# If you want to add engines to the ship, you can do it here

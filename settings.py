@@ -4,7 +4,14 @@ RES = WIDTH, HEIGHT = 800, 600
 SENTINEL_PATH = "assets/spaceships/sentinel.png"
 VANGUARD_PATH = "assets/spaceships/vanguard.png"
 
+MARAUDER_PATH = "assets/enemy_ships/marauder.png"
+
 ENGINE_PATH = "assets/engine_effects/vanguard.png"
+
+RADIO_NOISE_PATH = "assets/sounds/radio/radio_noise_loop.wav"
+
+# SPACE
+WHITE_DOT_PATH = "assets/space/WhiteDot.png"
 
 # UI
 
@@ -21,3 +28,4 @@ BACK_BUTTON = "assets/ui/BackButton.png"
 
 DIALOG_SPLASH = "assets/ui/DialogSplashScreen.png"
 DIALOG_SPLASH_BUTTON = "assets/ui/DialogSplashButton.png"
+DIALOG_SPLASH_HEADER = "assets/ui/DialogSplashHeader.png"

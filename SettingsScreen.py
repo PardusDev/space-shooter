@@ -9,7 +9,7 @@ class SettingsScreen:
 		self.previous_screen = previous_screen
 		self.buttons = []
 		self.font = game.fonts["icon-18"]
-		self.buttons.append(Button(30, 30, 64, 64, self.back, BACK_BUTTON, "", 0, self.font))
+		self.buttons.append(Button(30, 30, 64, 64, self.back, game.ui["back_button"], "", 0, self.font))
 
 	def update(self):
 		for event in pg.event.get():

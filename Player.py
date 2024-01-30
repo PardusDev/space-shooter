@@ -2,11 +2,11 @@ import pygame as pg
 from Spaceship import *
 
 class Player:
-	def __init__(self, interface):
+	def __init__(self, interface, game):
 		self.interface = interface
 		self.max_health = 100
 		self.health = 100
-		self.spaceship = Sentinel()
+		self.spaceship = Sentinel(game)
 		self.speed = 120
 
 		self.interface.update_manual(self)

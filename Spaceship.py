@@ -89,8 +89,8 @@ class Spaceship:
 
 
 class Sentinel(Spaceship):
-	def __init__(self):
-		image, ratio = scale_image_and_get_ratio(pg.image.load(SENTINEL_PATH), 120, 80)
+	def __init__(self, game):
+		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Sentinel"], 120, 80)
 		super().__init__("Sentinel", image, ratio)
 		self.damage = 20
 		self.speedMultiplier = 0.97
@@ -106,8 +106,8 @@ class Sentinel(Spaceship):
 		self.set_engines()
 	
 class Vanguard(Spaceship):
-	def __init__(self):
-		image, ratio = scale_image_and_get_ratio(pg.image.load(VANGUARD_PATH), 120, 80)
+	def __init__(self, game):
+		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Sentinel"], 120, 80)
 		super().__init__("Vanguard", image, ratio)
 		self.damage = 15
 		self.speedMultiplier = 0.81

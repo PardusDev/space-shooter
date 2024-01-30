@@ -30,6 +30,17 @@ class Wave:
 
 			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The second wave will start when this window closes.", spawn_enemies )
 
+		elif (self.wave == 3):
+			def another_dialog():
+				def spawn_enemies():
+					for i in range (10):
+						x, y = get_random_pos_for_enemies()
+						self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+
+				self.dialogue = Dialogue(self.game, "Test", "This is a test text. This is a ANOTHER text.", spawn_enemies)
+
+			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The third wave won't start when this window closes.", another_dialog )
+
 	def next_wave_start(self):
 		self.wave += 1
 		self.start = True

@@ -106,8 +106,8 @@ class Marauder(Enemy):
 		base_speed = 15
 		max_speed = 60
 		acceleration = 5
-		damage = 15
-		health = 500
+		damage = 5
+		health = 200
 
 		super().__init__(x, y, base_speed, max_speed, acceleration, damage, health, asset)
 

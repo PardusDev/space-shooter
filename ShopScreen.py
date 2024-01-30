@@ -5,10 +5,10 @@ from settings import *
 class ShopScreen:
 	def __init__(self, game, previous_screen):
 		self.game = game
-		self.background = pg.image.load(SETTINGS_MENU_BACKGROUND)
+		self.background = game.ui["shop-bg"]
 		self.previous_screen = previous_screen
 		self.buttons = []
-		self.font = pg.font.Font("assets/fonts/icons.ttf", 18)
+		self.font = game.fonts["icon-18"]
 		self.buttons.append(Button(30, 30, 64, 64, self.back, BACK_BUTTON, "", 0, self.font))
 
 	def update(self):

@@ -5,16 +5,16 @@ from utilities import *
 from settings import *
 
 class Interface:
-	def __init__(self):
+	def __init__(self, game):
 		self.screen = pg.display.set_mode(RES)
 		pg.display.set_caption("Space Shooter")
 
-		self.health_background_bg, self.ui_ratio = scale_image_and_get_ratio(pg.image.load(HEALTH_BAR_BACKGROUND), 320, 60)
-		self.health_background_mask_imgORG = scale_and_rot_image(pg.image.load(HEALTH_BAR_BACKGROUND_MASK), self.ui_ratio, 0)
-		self.health_background_mask_img = scale_and_rot_image(pg.image.load(HEALTH_BAR_BACKGROUND_MASK), self.ui_ratio, 0)
+		self.health_background_bg, self.ui_ratio = scale_image_and_get_ratio(game.ui["health_bar_bg"], 320, 60)
+		self.health_background_mask_imgORG = scale_and_rot_image(game.ui["health_bar_bg_mask"], self.ui_ratio, 0)
+		self.health_background_mask_img = scale_and_rot_image(game.ui["health_bar_bg_mask"], self.ui_ratio, 0)
 		self.health_background_mask_img_max_size = self.health_background_mask_img.get_size()
 
-		self.health_left_block = scale_and_rot_image(pg.image.load(HEALTH_BAR_LEFT_BLOCK), self.ui_ratio, 0)
+		self.health_left_block = scale_and_rot_image(game.ui["health_bar_left_block"], self.ui_ratio, 0)
 
 		self.last_update = 0
 		self.frame_rate = 1

@@ -6,7 +6,7 @@ from settings import *
 
 class MainMenuScreen:
 	def __init__(self, game):
-		self.background = pg.image.load(MAIN_MENU_BACKGROUND)
+		self.background = game.ui["main-bg"]
 		self.game = game
 		self.buttons = []
 							#     x: WIDTH / 2 - BUTTON_WIDTH / 2

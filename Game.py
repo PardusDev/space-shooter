@@ -11,29 +11,45 @@ class Game:
 		pg.init()
 		# It is created in the button class
 		# self.iconFont = pg.font.Font("assets/fonts/icons.ttf", 18)
+		self.ally_spaceships = {
+			"Sentinel": pg.image.load(SENTINEL_PATH),
+			"Vanguard": pg.image.load(VANGUARD_PATH)
+		}
+
 		self.sound_effects = {
 			"enemy_laser": pg.mixer.Sound("assets/sounds/basic_laser/enemy_laser_effect.ogg"),
 			"ally_laser": pg.mixer.Sound("assets/sounds/basic_laser/ally_laser_effect.ogg"),
 		}
 
 		self.ui = {
+			"main-bg": pg.image.load(MAIN_MENU_BACKGROUND),
+			"shop-bg": pg.image.load(SETTINGS_MENU_BACKGROUND),
+			"settings-bg": pg.image.load(SETTINGS_MENU_BACKGROUND),
 			
+
 			"start_button": pg.image.load(START_BUTTON_BACKGROUND),
 			"other_main_menu_button": pg.image.load(OTHER_MAIN_MENU_BUTTON_BACKGROUND),
 			"dialogue_bg": pg.image.load(DIALOG_SPLASH),
-			"dialogue_button": pg.image.load(DIALOG_SPLASH_BUTTON)
+			"dialogue_button": pg.image.load(DIALOG_SPLASH_BUTTON),
+
+			"health_bar_bg": pg.image.load(HEALTH_BAR_BACKGROUND),
+			"health_bar_bg_mask": pg.image.load(HEALTH_BAR_BACKGROUND_MASK),
+			"health_bar_left_block": pg.image.load(HEALTH_BAR_LEFT_BLOCK),
 		}
 
 		self.fonts = {
 			
 			"sys-16": pg.font.SysFont(None, 16),
 			"sys-20": pg.font.SysFont(None, 20),
-			"sys-24": pg.font.SysFont(None, 24)
+			"sys-24": pg.font.SysFont(None, 24),
+
+			# Icon
+			"icon-18": pg.font.Font("assets/fonts/icons.ttf", 18)
 		}
 		self.mainmenu = MainMenuScreen(self)
 
 		# Because it has an interface screen, we are creating it from the beginning. Even if it's in the main menu, the interface will have been formed in the background.
-		self.interface = Interface()
+		self.interface = Interface(self)
 		self.clock = pg.time.Clock()
 		self.running = True
 
@@ -80,7 +96,7 @@ class Game:
 	def play(self):
 		print("Clicked play")
 		self.mainmenu = None
-		self.player = Player(self.interface)
+		self.player = Player(self.interface, self)
 		self.wave = Wave(self)
 		
 		

@@ -18,13 +18,17 @@ class Wave:
 					x, y = get_random_pos_for_enemies()
 					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
 
-			self.dialogue = Dialogue(self.game, "Test", "Test", spawn_enemies )
+			self.dialogue = Dialogue(self.game, "Test", "This is just a test text. The first wave will begin once this window closes.", spawn_enemies )
 			# When dialogue screen closed, spawn enemies.
 			
 		elif (self.wave == 2):
-			for i in range (7):
-				x, y = get_random_pos_for_enemies()
-				self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+
+			def spawn_enemies():
+				for i in range (7):
+					x, y = get_random_pos_for_enemies()
+					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+
+			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The second wave will start when this window closes.", spawn_enemies )
 
 	def next_wave_start(self):
 		self.wave += 1

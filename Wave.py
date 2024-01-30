@@ -11,12 +11,16 @@ class Wave:
 
 	def create_enemy(self):
 		if (self.wave == 1):
-			self.dialogue = Dialogue(self.game, "Test", "Test")
 
-			# When dialogue window closed...
-			for i in range (5):
-				x, y = get_random_pos_for_enemies()
-				self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+			# Wave enemies =>
+			def spawn_enemies():
+				for i in range (5):
+					x, y = get_random_pos_for_enemies()
+					self.game.enemies.append(Marauder(x, y, 0, 0, 500))
+
+			self.dialogue = Dialogue(self.game, "Test", "Test", spawn_enemies )
+			# When dialogue screen closed, spawn enemies.
+			
 		elif (self.wave == 2):
 			for i in range (7):
 				x, y = get_random_pos_for_enemies()
@@ -33,6 +37,10 @@ class Wave:
 
 		# Next wave start
 		self.next_wave_start()
+
+	def update(self):
+		if (self.dialogue is not None):
+			self.dialogue.update(self.game)
 
 	def draw(self):
 		if (self.dialogue is not None):

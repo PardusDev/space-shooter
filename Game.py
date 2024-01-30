@@ -17,8 +17,9 @@ class Game:
 		}
 
 		self.ui = {
-
-			"dialogue_bg": scale_image(pg.image.load(DIALOG_SPLASH), 500, 300)
+			
+			"dialogue_bg": scale_image(pg.image.load(DIALOG_SPLASH), 500, 300),
+			"dialogue_button": scale_image(pg.image.load(DIALOG_SPLASH_BUTTON), 100, 80)
 		}
 		self.mainmenu = MainMenuScreen(self)
 
@@ -92,6 +93,7 @@ class Game:
 
 			# For dialogue or merchant window
 			self.wave.draw()
+			self.wave.update()
 			
 			self.player.draw(self.interface.screen)
 			self.player.update(self)

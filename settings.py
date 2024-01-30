@@ -20,3 +20,4 @@ HEALTH_BAR_BACKGROUND_MASK = "assets/ui/HealthBarMask.png"
 BACK_BUTTON = "assets/ui/BackButton.png"
 
 DIALOG_SPLASH = "assets/ui/DialogSplashScreen.png"
+DIALOG_SPLASH_BUTTON = "assets/ui/DialogSplashButton.png"

@@ -1,8 +1,9 @@
 import pygame as pg
+from Button import *
 from settings import *
 
 class Dialogue:
-	def __init__(self, game, header, text):
+	def __init__(self, game, header, text , onClick):
 		self.game = game
 		self.header = header
 		self.text = text
@@ -14,9 +15,18 @@ class Dialogue:
 		self.header = self.font.render(self.text, True, (255, 255, 255))
 		self.bg.blit(self.header, (100, 100))
 
+		self.button_bg = self.game.ui["dialogue_button"]
+		self.button = Button(100, 100, 100, 80, onClick, DIALOG_SPLASH_BUTTON,"OK")
+
 	def update(self, game):
-		pass
+		# It's not work
+		# self.button.update()
+		if (self.button.isCollide(pg.mouse.get_pos())):
+			self.button.onClick()
+			game.wave.dialogue = None
 
 	def draw(self, game):
 		# Button.. etc.
 		game.interface.screen.blit(self.bg, (WIDTH / 2 - self.width / 2, HEIGHT / 2 - self.height / 2))
+
+		self.button.draw(game.interface.screen)

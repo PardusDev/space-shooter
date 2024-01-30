@@ -1,4 +1,5 @@
 import pygame as pg
+from Missile import *
 from Engine import *
 from Laser import *
 from utilities import *
@@ -21,9 +22,15 @@ class Spaceship:
 		self.lasers = []
 		self.last_fired_time = 0
 		
+			# Missile
+		self.missilesPoses = None
+		self.missiles = []
+		self.last_missile_fired_time = 0
 
 		# Engines
 		self.engines = []
+		
+		
 	
 	def set_engines(self):
 		for enginePos in self.enginePoses:
@@ -47,18 +54,31 @@ class Spaceship:
 
 	def fire(self, player, game):
 		current_time = pg.time.get_ticks() / 1000.0
-		if current_time - self.last_fired_time >= self.laserCooldown:
-			keys = pg.key.get_pressed()
-			if keys[pg.K_UP]:
+		
+		keys = pg.key.get_pressed()
+		if keys[pg.K_UP]:
+			if current_time - self.last_fired_time >= self.laserCooldown:
 				for xy in self.turretPoses:
 					turretX, turretY = xy
 					turretX = self.x + (turretX * self.ratio)
 					turretY = self.y + (turretY * self.ratio)
 					self.lasers.append(Laser(turretX, turretY, self.damage, self))
-				game.sound_effects["ally_laser"].play()
 				
+				game.sound_effects["ally_laser"].play()
+			
 				self.last_fired_time = current_time
 
+		if keys[pg.K_SPACE] and self.missilesPoses is not None:
+			if current_time - self.last_missile_fired_time >= self.missileCooldown:
+				for xy in self.missilesPoses:
+					missileX, missileY = xy
+					missileX = self.x + (missileX * self.ratio)
+					missileY = self.y + (missileY * self.ratio)
+					self.missiles.append(RB4(game, missileX, missileY, self.damage, self))
+
+				game.sound_effects["ally_laser"].play()
+
+				self.last_missile_fired_time = current_time
 				# For debug
 				# player.player_lost_health(self.damage)
 			
@@ -72,6 +92,12 @@ class Spaceship:
 		for engine in self.engines:
 			engine.update()
 
+		for missile in self.missiles:
+			if (missile.y < 0):
+				self.missiles.remove(missile)
+			else:
+				missile.update(dt_seconds)
+
 		for laser in self.lasers:
 			if (laser.y < 0):
 				self.lasers.remove(laser)
@@ -80,6 +106,9 @@ class Spaceship:
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.x, self.y))
+
+		for missile in self.missiles:
+			missile.draw(screen)
 
 		for laser in self.lasers:
 			laser.draw(screen)
@@ -100,6 +129,10 @@ class Sentinel(Spaceship):
 		self.turretPoses = [(135, 79), (211, 79)]
 		self.laserCooldown = 0.18
 
+		# Missiles
+		self.missilesPoses= [(135, 79)]
+		self.missileCooldown = 2.5
+
 		# Engines
 		self.enginePoses = [(83, 240), (269, 240), (140, 280), (215, 280)]
 
@@ -107,7 +140,7 @@ class Sentinel(Spaceship):
 	
 class Vanguard(Spaceship):
 	def __init__(self, game):
-		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Sentinel"], 120, 80)
+		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Vanguard"], 120, 80)
 		super().__init__("Vanguard", image, ratio)
 		self.damage = 15
 		self.speedMultiplier = 0.81

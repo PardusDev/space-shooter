@@ -7,7 +7,7 @@ from utilities import *
 from settings import *
 
 class Enemy:
-	def __init__(self, x, y, base_speed, max_speed, acceleration, damage, health, asset):
+	def __init__(self, x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset):
 		self.x = x
 		self.y = y
 		self.base_speed = base_speed
@@ -30,6 +30,8 @@ class Enemy:
 		self.turretPoses = []
 		self.laserCooldown = 0.32
 		self.last_fired_time = 0
+		# Turret Range
+		self.max_range = max_range
 	
 	def move(self, game):
 		# X - AXIS
@@ -58,15 +60,16 @@ class Enemy:
 		current_time = pg.time.get_ticks() / 1000.0
 		# You can add range
 		if self.y > 0:
-			if current_time - self.last_fired_time >= self.laserCooldown:
-				for xy in self.turretPoses:
-					turretX, turretY = xy
-					turretX = self.x + (turretX * self.ratio)
-					turretY = self.y + (turretY * self.ratio)
-					self.lasers.append(Laser(turretX, turretY, self.damage, self, (game.player.spaceship.x, game.player.spaceship.y)))
-				
-				game.sound_effects["enemy_laser"].play()
-				self.last_fired_time = current_time
+			if ((game.player.spaceship.x - self.x) ** 2 + (game.player.spaceship.y - self.y) ** 2) ** 0.5 < self.max_range:
+				if current_time - self.last_fired_time >= self.laserCooldown:
+					for xy in self.turretPoses:
+						turretX, turretY = xy
+						turretX = self.x + (turretX * self.ratio)
+						turretY = self.y + (turretY * self.ratio)
+						self.lasers.append(Laser(turretX, turretY, self.damage, self, (game.player.spaceship.x, game.player.spaceship.y)))
+					
+					game.sound_effects["enemy_laser"].play()
+					self.last_fired_time = current_time
 
 	def collide(self, spaceship):
 		return pg.Rect(self.x, self.y, self.width, self.height).colliderect(pg.Rect(spaceship.x, spaceship.y, spaceship.width, spaceship.height))
@@ -108,8 +111,9 @@ class Marauder(Enemy):
 		acceleration = 5
 		damage = 5
 		health = 200
+		max_range = 500
 
-		super().__init__(x, y, base_speed, max_speed, acceleration, damage, health, asset)
+		super().__init__(x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset)
 
 		# If you want to add engines to the ship, you can do it here
 		self.engines.append(Engine(self, self.x + 20, self.y + 80, (100, 276), 0))

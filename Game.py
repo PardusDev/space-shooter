@@ -51,6 +51,10 @@ class Game:
 			"health_bar_left_block": pg.image.load(HEALTH_BAR_LEFT_BLOCK),
 		}
 
+		self.missiles = {
+			"rb4": pg.image.load(RB4_PATH),
+		}
+
 		self.fonts = {
 			
 			"sys-16": pg.font.SysFont(None, 16),
@@ -134,6 +138,7 @@ class Game:
 				# Player's laser to enemy collision
 				for laser in self.player.spaceship.lasers:
 					if laser.collide(enemy):
+						# TODO: Add sound effect
 						# Damage enemy
 						enemy.health -= laser.damage
 						
@@ -147,13 +152,26 @@ class Game:
 						# Remove laser
 						self.player.spaceship.lasers.remove(laser)
 
+				# Player's missiles to enemy collision
+				for missile in self.player.spaceship.missiles:
+					if missile.collide(enemy):
+						# TODO: Add sound effect
+						enemy.health -= missile.damage
+
+						if (enemy.health <= 0):
+							self.enemies.remove(enemy)
+
+							if (len(self.enemies) <= 0):
+								self.wave.current_wave_end()
+
+							self.player.spaceship.missiles.remove(missile)
+
 			self.interface.draw(self.player)
 			self.interface.update(self)
 			pg.display.update()
 
 
 	def quit(self):
-		print("Clicked quit")
 		self.running = False
 
 			

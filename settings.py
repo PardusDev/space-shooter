@@ -14,6 +14,8 @@ RADIO_NOISE_PATH = "assets/sounds/radio/radio_noise_loop.wav"
 WHITE_DOT_PATH = "assets/space/WhiteDot.png"
 STAR_PATH = "assets/space/Star.png"
 
+RB4_PATH = "assets/missiles/rb4.png"
+
 # UI
 
 START_BUTTON_BACKGROUND = "assets/ui/StartButton.png"

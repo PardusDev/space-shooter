@@ -1,5 +1,6 @@
 import pygame as pg
 
+from Wave import *
 from MainMenuScreen import *
 from Enemy import *
 from Interface import *
@@ -20,6 +21,8 @@ class Game:
 		self.interface = Interface()
 		self.clock = pg.time.Clock()
 		self.running = True
+
+		self.enemies = []
 
 	def run(self):
 		while self.running:
@@ -63,15 +66,21 @@ class Game:
 		print("Clicked play")
 		self.mainmenu = None
 		self.player = Player(self.interface)
+		self.wave = Wave(self)
 		
 		
 
 		# Like wave-based enemies
-		self.enemies = []
-		for i in range(10):
-			self.enemies.append(Marauder(random.randrange(10, WIDTH - 100), random.randrange(-1000, -10), 0, 0, 500))
+		
+		# Countdown code
+		
+		# Start wave
+		self.wave.next_wave_start(self)
 
 		while self.running:
+			# For debug
+			print(len(self.enemies))
+			
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
 			self.interface.screen.fill((11, 11, 11))

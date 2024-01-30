@@ -1,4 +1,6 @@
 import pygame as pg
+import random
+from settings import *
 
 def scale_image (image, target_width, target_height):
 		original_width, original_height = image.get_size()
@@ -32,3 +34,6 @@ def scale_and_rot_image (image, ratio, rotation):
 	new_height = int(original_height * ratio)
 
 	return pg.transform.rotate(pg.transform.scale(image, (new_width, new_height)), rotation)
+
+def get_random_pos_for_enemies():
+	return random.randrange(10, WIDTH - 100), random.randrange(-1000, -10)

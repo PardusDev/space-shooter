@@ -11,7 +11,7 @@ class Engine:
 		self.ROT = ROT
 		
 		self.index = 0
-		self.frames = [scale_and_rot_image(pg.image.load(f"assets/engine_effects/{i:02d}_vanguard.png"), ship.ratio / 1.5, self.ROT) for i in range(32)]
+		self.frames = [scale_and_rot_image(frame, ship.ratio / 1.5, self.ROT) for frame in ship.game.engine_assets["basic"]]
 		self.image = self.frames[self.index]
 
 		self.width, self.height = self.image.get_size()

@@ -1,3 +1,4 @@
+import pygame as pg
 from Dialogue import *
 from Enemy import *
 from settings import *
@@ -10,15 +11,17 @@ class Wave:
 		self.game = game
 		self.start = False
 
+		self.MarauderQue = 0
+
+		self.last_spawn_time = 0
+		self.spawnInterval = 0.5
+
 	def create_enemy(self):
 		self.game.sound_effects["radio_noise"].play()
 		if (self.wave == 1):
-
 			# Wave enemies =>
 			def spawn_enemies():
-				for i in range (5):
-					x, y = get_random_pos_for_enemies()
-					self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
+				self.MarauderQue = 5
 				self.game.wave.dialogue = None
 
 			self.dialogue = Dialogue(self.game, "Wave 1: Threat", "Our radars have detected unidentified spacecraft with unknown origin locations. We do not know whether they are friend or foe. Regardless of what they are, it's imperative that we ensure our own safety. According to the information from the radars, there are 5 unidentified ships. We believe they will enter our field of view shortly.", spawn_enemies )
@@ -42,7 +45,7 @@ class Wave:
 						self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
 					self.game.wave.dialogue = None
 				
-				sleep(0.1)
+				pg.time.delay(10000)
 				self.dialogue = Dialogue(self.game, "Test", "This is a test text. This is a ANOTHER text.", spawn_enemies)
 
 			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The third wave won't start when this window closes.", another_dialog )
@@ -59,7 +62,20 @@ class Wave:
 		# Next wave start
 		self.next_wave_start()
 
+	def spawnMarauder(self):
+		x, y = get_random_pos_for_enemies()
+		self.game.enemies.append(Marauder(self.game, x, y, 0, 0, 500))
+
 	def update(self):
+		current_time = pg.time.get_ticks() / 1000.0
+		if (current_time - self.last_spawn_time >= self.spawnInterval):
+			
+			if (self.MarauderQue > 0):
+				self.spawnMarauder()
+				self.MarauderQue -= 1
+			
+			self.last_spawn_time = current_time
+
 		if (self.dialogue is not None):
 			self.dialogue.update(self.game)
 

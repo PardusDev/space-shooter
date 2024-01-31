@@ -51,6 +51,14 @@ class Game:
 			"health_bar_left_block": pg.image.load(HEALTH_BAR_LEFT_BLOCK),
 		}
 
+		self.laser_assets = {
+			"basic": [pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png") for i in range(23)]
+		}
+
+		self.engine_assets = {
+			"basic": [pg.image.load(f"assets/engine_effects/{i:02d}_vanguard.png") for i in range(32)]
+		}
+
 		self.missiles = {
 			"rb4": pg.image.load(RB4_PATH),
 		}
@@ -71,7 +79,6 @@ class Game:
 		self.clock = pg.time.Clock()
 		self.running = True
 
-		self.enemies = []
 
 		self.bg_assets = []
 
@@ -88,13 +95,12 @@ class Game:
 
 
 	def play(self):
-		print("Clicked play")
 		self.mainmenu = None
 		self.player = Player(self.interface, self)
 		self.wave = Wave(self)
 		self.background = Background(self)
 		
-		
+		self.enemies = []
 
 		# Like wave-based enemies
 		
@@ -106,6 +112,7 @@ class Game:
 		while self.running:
 			# Attention! For debug
 			# print(len(self.enemies))
+			
 
 			self.dt = game.clock.tick(60)
 			self.dt_seconds = self.dt / 1000.0
@@ -120,6 +127,8 @@ class Game:
 			
 			self.player.draw(self.interface.screen)
 			self.player.update(self)
+
+			
 			
 
 			for enemy in self.enemies:
@@ -169,6 +178,34 @@ class Game:
 			self.interface.draw(self.player)
 			self.interface.update(self)
 			pg.display.update()
+
+	def end_game(self):
+		self.running = False
+		self.game_over = True
+
+		while self.game_over:
+			for event in pg.event.get():
+				if event.type == pg.QUIT:
+					self.running = False
+					self.game_over = False
+				elif event.type == pg.KEYDOWN:
+					self.running = True
+					self.game_over = False
+					# Reset game
+
+
+					self.mainmenu = MainMenuScreen(self)
+					self.run()
+			
+
+			self.interface.screen.fill((11, 11, 11))
+			self.interface.screen.blit(self.ui["shop-bg"], (0, 0))
+
+			self.interface.screen.blit(self.fonts["sys-24"].render("GAME OVER", True, (255, 255, 255)), (WIDTH / 2 - 100, HEIGHT / 2 - 100))
+			self.interface.screen.blit(self.fonts["sys-24"].render("Press any key to continue...", True, (255, 255, 255)), (WIDTH / 2 - 100, HEIGHT / 2 - 50))
+
+			pg.display.update()
+
 
 
 	def quit(self):

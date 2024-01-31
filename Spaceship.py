@@ -7,7 +7,8 @@ from settings import *
 
 
 class Spaceship:
-	def __init__(self, spaceshipName, image, ratio):
+	def __init__(self, game, spaceshipName, image, ratio):
+		self.game = game
 		self.spaceshipName = spaceshipName
 		self.image = image
 		self.ratio = ratio
@@ -86,6 +87,7 @@ class Spaceship:
 			# if(keys[pg.K_DOWN]):
 			# 	player.player_get_health(10)
 		
+	
 		
 
 	def update(self, dt_seconds):
@@ -120,7 +122,7 @@ class Spaceship:
 class Sentinel(Spaceship):
 	def __init__(self, game):
 		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Sentinel"], 120, 80)
-		super().__init__("Sentinel", image, ratio)
+		super().__init__(game, "Sentinel", image, ratio)
 		self.damage = 20
 		self.speedMultiplier = 0.97
 
@@ -141,7 +143,7 @@ class Sentinel(Spaceship):
 class Vanguard(Spaceship):
 	def __init__(self, game):
 		image, ratio = scale_image_and_get_ratio(game.ally_spaceships["Vanguard"], 120, 80)
-		super().__init__("Vanguard", image, ratio)
+		super().__init__(game, "Vanguard", image, ratio)
 		self.damage = 15
 		self.speedMultiplier = 0.81
 

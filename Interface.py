@@ -44,24 +44,6 @@ class Interface:
 			self.last_update = current
 	
 
-	def update_manual(self, player):
-		# Color changing code. However, it does not work correctly.
-		
-		# self.health_background_mask_img = pg.transform.scale(self.health_background_mask_img, (player.health * (self.health_background_mask_img_max_size[0] / player.max_health), self.health_background_mask_img_max_size[1]))
-		# if (player.health < 25):
-		# 	mask_threshold = (255, 99, 71) 
-		# 	mask_surface = pg.Surface(self.health_background_mask_img.get_size(), pg.SRCALPHA)
-		# 	mask_surface.fill(mask_threshold)
-
-		# 	self.health_background_mask_img.blit(mask_surface, (0, 0), special_flags=pg.BLEND_RGBA_MULT)
-		# else:
-		# 	mask_threshold = (115, 198, 207) 
-		# 	mask_surface = pg.Surface(self.health_background_mask_img.get_size(), pg.SRCALPHA)
-		# 	mask_surface.fill(mask_threshold)
-
-		# 	self.health_background_mask_img.blit(mask_surface, (0, 0), special_flags=pg.BLEND_RGBA_MULT)
-		pass
-
 	def draw(self, player):
 		self.draw_health_bar()
 	

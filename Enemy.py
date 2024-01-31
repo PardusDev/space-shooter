@@ -7,7 +7,8 @@ from utilities import *
 from settings import *
 
 class Enemy:
-	def __init__(self, x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset):
+	def __init__(self, game, x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset):
+		self.game = game
 		self.x = x
 		self.y = y
 		self.base_speed = base_speed
@@ -25,7 +26,7 @@ class Enemy:
 		self.engines = []
 
 		# Turrets
-		self.basic_laser_frames = [scale_and_rot_image(pg.image.load(f"assets/laser/ally_basic_laser/sprite_{i:02d}.png"), self.ratio / 4, (0)) for i in range(23)]
+		self.basic_laser_frames = [scale_and_rot_image(frame, self.ratio / 4, (0)) for frame in game.laser_assets["basic"]]
 		self.lasers = []
 		self.turretPoses = []
 		self.laserCooldown = 0.32
@@ -66,7 +67,7 @@ class Enemy:
 						turretX, turretY = xy
 						turretX = self.x + (turretX * self.ratio)
 						turretY = self.y + (turretY * self.ratio)
-						self.lasers.append(Laser(turretX, turretY, self.damage, self, (game.player.spaceship.x, game.player.spaceship.y)))
+						self.lasers.append(Laser(turretX, turretY, self.damage, self, (game.player.spaceship.x + game.player.spaceship.width / 2, game.player.spaceship.y)))
 					
 					game.sound_effects["enemy_laser"].play()
 					self.last_fired_time = current_time
@@ -102,18 +103,18 @@ class Enemy:
 			laser.draw(screen)
 
 class Marauder(Enemy):
-	def __init__(self, x, y , speed, damage, health, game):
+	def __init__(self, game, x, y , speed, damage, health):
 		asset = game.enemy_spaceships["Marauder"]
 		x = random.randint(0, WIDTH - asset.get_width())
 		
 		base_speed = 15
 		max_speed = 60
 		acceleration = 5
-		damage = 5
+		damage = 40
 		health = 200
 		max_range = 500
 
-		super().__init__(x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset)
+		super().__init__(game, x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset)
 
 		# If you want to add engines to the ship, you can do it here
 		self.engines.append(Engine(self, self.x + 20, self.y + 80, (100, 276), 0))

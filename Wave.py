@@ -30,9 +30,7 @@ class Wave:
 		elif (self.wave == 2):
 
 			def spawn_enemies():
-				for i in range (7):
-					x, y = get_random_pos_for_enemies()
-					self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
+				self.MarauderQue = 7
 				self.game.wave.dialogue = None
 
 			self.dialogue = Dialogue(self.game, "Wave 2: More of Them", "It seems these ships are hostile! Their launch locations have been detected by our radars. There are 7 more ships coming from this location! Let's defeat them as well.", spawn_enemies )
@@ -40,12 +38,9 @@ class Wave:
 		elif (self.wave == 3):
 			def another_dialog():
 				def spawn_enemies():
-					for i in range (10):
-						x, y = get_random_pos_for_enemies()
-						self.game.enemies.append(Marauder(x, y, 0, 0, 500, self.game))
+					self.MarauderQue = 10
 					self.game.wave.dialogue = None
-				
-				pg.time.delay(10000)
+					
 				self.dialogue = Dialogue(self.game, "Test", "This is a test text. This is a ANOTHER text.", spawn_enemies)
 
 			self.dialogue = Dialogue(self.game, "Test", "This is a test text. The third wave won't start when this window closes.", another_dialog )

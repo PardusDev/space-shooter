@@ -117,7 +117,8 @@ class Marauder(Enemy):
 		super().__init__(game, x, y, base_speed, max_speed, acceleration, damage, max_range, health, asset)
 
 		# If you want to add engines to the ship, you can do it here
-		self.engines.append(Engine(self, self.x + 20, self.y + 80, (100, 276), 0))
+		self.engines.append(Engine(self, self.x + 90, self.y + 80, (90, -130), 0))
+		self.engines.append(Engine(self, self.x + 180, self.y + 80, (185, -130), 0))
 
 		# If you want to add turrets to the ship, you can do it here
 		self.turretPoses.append((60, 80))

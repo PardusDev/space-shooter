@@ -15,7 +15,7 @@ cd space-shooter
 pip install -r requirements.txt
 ```
 
-## How to Player
+## How to Play
 1. ** Run the game:
 ```sh
 python Game.py
@@ -42,6 +42,13 @@ Here are some screenshots of the game:
 <div align="center">
 <img src="/screenshots/ingame.png" alt="Screenshot from Game" width="900" />
 </div>
+
+## Contact
+
+You can reach me at:
+
+- **Email:** [rustemavci@hotmail.com.tr](mailto:rustemavci@hotmail.com.tr)
+- **LinkedIn:** [LinkedIn](https://www.linkedin.com/in/rüstem-avcı)
 
 ## Acknowledgments
 * Developed with Pygame.
